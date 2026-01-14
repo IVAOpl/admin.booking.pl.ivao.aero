@@ -10,6 +10,6 @@ export const Env = {
   IVAO_API_SERVER: import.meta.env.VITE_IVAO_API_HOST || (isDev
     ? 'http://localhost:3003'
     : ''),
-  CLIENT_ID: import.meta.env.VITE_CLIENT_ID || '',
-  CLIENT_URL: import.meta.env.VITE_CLIENT_URL || '',
+  CLIENT_ID: import.meta.env.VITE_CLIENT_ID || 'ee08bd51-7b82-4b42-bd22-5ce4b724666c',
+  CLIENT_URL: import.meta.env.VITE_CLIENT_URL || 'https://kronos.pl.ivao.aero/login',
 };
