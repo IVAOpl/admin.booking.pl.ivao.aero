@@ -1,9 +1,10 @@
-import Axios, { AxiosInstance } from 'axios';
 import { Event, EventType } from '../types/Event';
 import { Pagination } from '../types/Pagination';
 import { Scenery } from '../types/Scenery';
 import { Slot } from '../types/Slot';
 import { User } from '../types/User';
+import AxiosHook from './AxiosHook';
+import { Env } from '../env';
 
 interface AuthResponse {
   jwt: string;
@@ -39,24 +40,21 @@ const fromObjectToQueryString = (obj: any) => {
   return searchParams.toString();
 };
 
-export class ApiClient {
-  private axios: AxiosInstance;
-
-  constructor(baseURL: string) {
-    this.axios = Axios.create({
-      baseURL,
-    });
-  }
+export class ApiClient extends AxiosHook {
 
   async auth(ivaoToken: string) {
-    return this.axios.post<AuthResponse>('/auth', { 'ivao-token': ivaoToken }).then(response => response.data);
+    const payload = {
+      "ivaoToken": ivaoToken,
+      "clientHost": Env.CLIENT_URL
+    }
+    const { data } = await this.axios.post<AuthResponse>("/auth", payload)
+    this.token = data.jwt;
+    return data;
   }
 
-  async getAuth(token: string): Promise<User> {
+  async getAuth(): Promise<User> {
     return this.axios
-      .get<User>('/auth', {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get<User>('/auth')
       .then(response => {
         return {
           ...response.data,
@@ -132,6 +130,14 @@ export class ApiClient {
   async updateSlot(slotId: number, data: Partial<Slot>, token: string) {
     const response = await this.axios
       .put(`/slot/${slotId}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    return response.data;
+  }
+
+  async removeBooking(slotId: number, token: string) {
+    const response = await this.axios
+      .patch(`/slot/${slotId}/cancel`, {
         headers: { Authorization: `Bearer ${token}` },
       });
     return response.data;

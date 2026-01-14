@@ -7,7 +7,7 @@ import { SlotForm } from './components/SlotForm';
 import { SlotList } from './components/SlotList';
 import { Slot } from '../../types/Slot';
 import { Button, CircularProgress } from '@mui/material';
-import { CloudUpload } from '@material-ui/icons';
+import { CloudUpload } from '@mui/icons-material';
 import { Download } from '@mui/icons-material';
 import { AuthContext } from '../../context/AuthContext';
 import { IocContext } from '../../context/IocContext';
@@ -15,6 +15,7 @@ import { Confirm } from '../../components/Confirm';
 import { NotificationContext, NotificationType } from '../../context/NotificationContext';
 import { ONE_SECOND } from '../../constants';
 import { useQueryClient } from 'react-query';
+import { Env } from '../../env';
 
 export const SlotsPage = () => {
   const eventId = Number(useParams().eventId);
@@ -102,7 +103,7 @@ export const SlotsPage = () => {
           <TabPanel value="4">
             <Grid container spacing={2}>
               <Grid item>
-                <Button variant="contained" href={`${process.env.REACT_APP_API_HOST}/slot/many`} endIcon={<Download />}>
+                <Button variant="contained" href={`${Env.IVAO_KRONOS_API_SERVER}/slot/many`} endIcon={<Download />}>
                   Download Template
                 </Button>
               </Grid>
