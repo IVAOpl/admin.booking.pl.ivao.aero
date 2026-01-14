@@ -7,5 +7,5 @@ export const Env = {
   IVAO_KRONOS_API_SERVER: import.meta.env.VITE_IVAO_KRONOS_API_HOST || 'https://api.kronos.pl.ivao.aero',
   IVAO_API_SERVER: import.meta.env.VITE_IVAO_API_HOST ||  'https://api.ivao.aero',
   CLIENT_ID: import.meta.env.VITE_CLIENT_ID || 'ee08bd51-7b82-4b42-bd22-5ce4b724666c',
-  CLIENT_URL: import.meta.env.VITE_CLIENT_URL || 'https://kronos.pl.ivao.aero/login',
+  CLIENT_URL: import.meta.env.VITE_CLIENT_URL || 'https://admin.pl.ivao.aero',
 };
